@@ -1,8 +1,7 @@
 # joseph-docs-public
 
-> Status (2026-11-27): all joseph repositories are currently **private**. This repository keeps its
-> public-layer rules (allowlist, 200-line cap, keyword scan) so a future visibility flip is a
-> review, not a cleanup.
+> Status (2026-11-27): this repository is **public**. Its public-layer rules (allowlist, 200-line cap,
+> keyword scan) keep growth explicit; private material lives in joseph-docs-private.
 
 Public architecture authority, cross-repository contracts and shared agent rules for the
 joseph-* package family.
