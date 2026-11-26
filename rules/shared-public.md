@@ -51,3 +51,13 @@ operations, research governance and the roadmap control plane live in
 - Evidence attaches to GitHub Issues as run manifests (revision ids, repository SHAs, CI run URL).
   No report trees are kept in code repositories; historical evidence resolves through
   `evidence/INDEX.json` to the commit that held it. History is never rewritten.
+
+## Public boundary (short form)
+
+- Default private, public by exception. Public repositories hold generic principles, short
+  contracts, generic engine code without strategy specifics, public provider interfaces, fixtures
+  and tooling.
+- Never in a public repository: a concrete strategy, research results or manifests, vendor
+  details, control-plane or roadmap internals, evidence, credentials or host paths.
+- Every public PR is approved by a private-project lead; each public repository enforces a file
+  allowlist, a size cap and a keyword scan in CI. The full policy lives in joseph-docs-private.
