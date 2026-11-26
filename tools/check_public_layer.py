@@ -1,7 +1,7 @@
 import pathlib, sys
 root = pathlib.Path(__file__).resolve().parents[1]
 allowed = {l.strip() for l in (root / "public-layer.allow").read_text().splitlines() if l.strip() and not l.startswith("#")}
-actual = {p.relative_to(root).as_posix() for d in ("architecture", "contracts", "guides", "reference", "rules") for p in (root / d).rglob("*.md")} if (root / "reference").exists() or True else set()
+actual = {p.relative_to(root).as_posix() for d in ("architecture", "contracts", "guides", "reference", "rules", "packages") for p in (root / d).rglob("*.md")} if (root / "reference").exists() or True else set()
 extra = sorted(actual - allowed)
 missing = sorted(allowed - actual)
 if extra:
