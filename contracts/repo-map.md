@@ -4,6 +4,7 @@ Six packages by runtime role. joseph-core is the transitional source of extracti
 
 | Package | Visibility | Role | Delegates to |
 |---|---|---|---|
+| joseph-api | public | shared data model and API: Instrument/Future/Option/Exchange, bar/tick/settlement/margin/fee DTOs, revision record DTOs | nothing (bottom of the DAG) |
 | joseph-dal (host + plugins) | public | data boundary, capabilities, preflight, revisions | cnequity, akshare, vn.py (sources); dal-tsl (private vendor provider) |
 | joseph-alpha (host + alpha-lite) | public | factor/model/strategy definitions, batch and incremental backends | alpha-native (private) |
 | joseph-mini | public | runtime, portfolio, account, OMS, hard-risk, day-engine, simulator contract | none; single JO execution authority |
@@ -13,6 +14,8 @@ Six packages by runtime role. joseph-core is the transitional source of extracti
 | joseph-alpha-native | private | accelerated alpha backend | implements alpha's public backend protocol |
 
 Conventions:
+
+- `joseph-api` imports nothing from other joseph packages; every package (dal, alpha, pilot, mini, live and the private backends) may import it. The DAL interface and preflight live in joseph-dal; canonical JO order commands live in joseph-mini; factor definitions live in joseph-alpha.
 
 - `-native` = private repository implementing a public host contract, admitted only after passing
   the host's public equivalence vectors (exact for discrete outputs, declared tolerance for floats).
