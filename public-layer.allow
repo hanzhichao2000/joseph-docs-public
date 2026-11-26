@@ -30,3 +30,4 @@ packages/joseph-pilot/README.md
 packages/joseph-pilot/adr/README.md
 packages/joseph-pilot/architecture/README.md
 packages/joseph-pilot/contracts/README.md
+contracts/data-model.md
