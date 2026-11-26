@@ -1,14 +1,14 @@
 # Public architecture
 
-The public authority for the joseph-* package family. Public packages may depend on public
-layers only; a private layer may extend but never complete public evidence.
+The public authority for the joseph-* package family. Public packages may depend on public layers
+only; a private layer may extend but never complete public evidence.
 
-- `FINAL_TARGET_ARCHITECTURE_V1.md`: the long-term target shape (draft), with the platform
-  boundary profile landing as Section 16.
-- `CORE_DEPENDENCY_DIRECTION.md`: the dependency-direction rule and the exception-list ratchet.
-- The package map (six packages by runtime role, visibility and upstream delegation) is in
-  `../contracts/repo-map.md`.
+The public layer is deliberately thin: short canonical contracts in `../contracts/`, the shared
+rules in `../rules/`, and this index. Full-length architecture documents, vendor material, research
+programs and the control plane live in `joseph-docs-private`, which pins this repository as a
+submodule. Do not copy long documents here; write the contract down in a few lines instead.
 
-The public layer is a **whitelist**: every file here must be listed in `../public-layer.allow`,
-enforced by CI. Vendor-specific, research-specific and control-plane material lives in
-`joseph-docs-private`, which pins this repository as a submodule.
+Two executable rules, enforced by CI (`../tools/check_public_layer.py`):
+
+- every public markdown file is listed in `../public-layer.allow`;
+- no public markdown file exceeds 200 lines.

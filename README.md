@@ -35,6 +35,4 @@ the same code PR.
 
 `public-layer.allow` is the whitelist for everything under `architecture/`, `contracts/`,
 `guides/`, `reference/` and `rules/`. CI (`public-layer.yml`, GitHub-hosted) fails when a file
-appears that is not whitelisted, or a whitelisted file is missing. Add public content by adding
-the file and its allowlist entry in the same PR; vendor, research and control-plane material goes
-to `joseph-docs-private` instead.
+appears that is not whitelisted, or a whitelisted file is missing. Add public content by adding the file and its allowlist entry in the same PR; vendor, research and control-plane material goes to `joseph-docs-private` instead. Keep every public markdown file at or under 200 lines: short canonical contracts only, no full-text copies of long internal documents.

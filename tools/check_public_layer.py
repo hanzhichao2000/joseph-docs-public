@@ -10,4 +10,8 @@ if extra:
 if missing:
     print("Whitelisted files missing from the public layer:")
     [print("  ", p) for p in missing]
-sys.exit(1 if extra or missing else 0)
+long = sorted(p for p in actual if (root / p).read_text(encoding="utf-8").count("\n") + 1 > 200)
+if long:
+    print("Public markdown files over 200 lines (keep the public layer thin):")
+    [print("  ", p) for p in long]
+sys.exit(1 if extra or missing or long else 0)
