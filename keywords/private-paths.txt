@@ -1,0 +1,5 @@
+# host paths and hostnames, never private repository names (those are public knowledge)
+/home/hanzc
+.worktrees/
+.hanzc2k26.online
+/var/tmp/
