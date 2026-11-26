@@ -30,3 +30,11 @@ git submodule add https://github.com/hanzhichao2000/joseph-docs-public.git docs
 `AGENTS.md` is generated from this repository's `rules/`; the generated file records the pinned
 commit in its header. Contract changes land here first; consumers bump the submodule pointer in
 the same code PR.
+
+## Enforcement
+
+`public-layer.allow` is the whitelist for everything under `architecture/`, `contracts/`,
+`guides/`, `reference/` and `rules/`. CI (`public-layer.yml`, GitHub-hosted) fails when a file
+appears that is not whitelisted, or a whitelisted file is missing. Add public content by adding
+the file and its allowlist entry in the same PR; vendor, research and control-plane material goes
+to `joseph-docs-private` instead.
