@@ -57,7 +57,9 @@ operations, research governance and the roadmap control plane live in
 - Default private, public by exception. Public repositories hold generic principles, short
   contracts, generic engine code without strategy specifics, public provider interfaces, fixtures
   and tooling.
-- Never in a public repository: a concrete strategy, research results or manifests, vendor
-  details, control-plane or roadmap internals, evidence, credentials or host paths.
+- Example strategies and replications of published strategies (published parameters, cited
+  source) may be public. Never in a public repository: a proprietary strategy, tuned results,
+  research manifests, vendor details, control-plane or roadmap internals, evidence, credentials
+  or host paths.
 - Every public PR is approved by a private-project lead; each public repository enforces a file
   allowlist, a size cap and a keyword scan in CI. The full policy lives in joseph-docs-private.

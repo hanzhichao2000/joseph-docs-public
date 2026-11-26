@@ -8,15 +8,17 @@ Six packages by runtime role. joseph-core is the transitional source of extracti
 | joseph-dal (host + plugins) | public | data boundary, capabilities, preflight, revisions | cnequity, akshare, vn.py (sources); dal-tsl (private vendor provider) |
 | joseph-alpha (host + alpha-lite) | public | factor/model/strategy definitions, batch and incremental backends | alpha-native (private) |
 | joseph-mini | public | generic trading core: runtime, portfolio, account, OMS, hard-risk, day-engine, simulator contract; no strategy-specific code | none; single JO execution authority |
+| joseph-pilot | public | experiment layer on open-source packages only (vectorbt, notebooks); example and textbook strategy replications with a cited `SOURCE.md`; never a proprietary strategy | vectorbt; unrelated to the trading core |
 | joseph-live | public | live runtime on mini's live-engine | vn.py EventEngine, gateways, report normalization (never the order owner) |
 | joseph-native | private | tick simulator kernel | implements mini's public simulator contract |
 | joseph-alpha-native | private | accelerated alpha backend | implements alpha's public backend protocol |
 
 Conventions:
 
-- There is no public experiment or strategy package. Experiments, strategies and research live in a
-  private sandbox (`joseph-sandbox-dx`) that may depend on the public packages and is never a
-  dependency of one.
+- Proprietary strategies, tuned results and research live in the private sandbox
+  (`joseph-sandbox-dx`), which may depend on the public packages and is never a dependency of one.
+  Public repositories may carry only example strategies and replications of published strategies
+  with their published parameters and a cited source.
 
 - `joseph-api` imports nothing from other joseph packages; every package (dal, alpha, pilot, mini, live and the private backends) may import it. The DAL interface and preflight live in joseph-dal; canonical JO order commands live in joseph-mini; factor definitions live in joseph-alpha.
 
