@@ -32,5 +32,6 @@ packages/joseph-pilot/architecture/README.md
 packages/joseph-pilot/contracts/README.md
 contracts/data-model.md
 contracts/provider-protocol.md
+contracts/runtime-conventions.md
 contributing/README.md
 templates/tutorial.md
