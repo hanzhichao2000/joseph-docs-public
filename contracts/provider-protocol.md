@@ -16,8 +16,19 @@ strict-local mode. joseph-dal implements the host side; `dal-cnequity` is the fi
 | `capabilities` | `tuple[CapabilityDeclaration, ...]` | datasets the provider can produce |
 | `replay_policy` | `"never_replay_dispatched" \| "idempotent_refetch"` | see Replay |
 | `transports` | `tuple["live", "file"]` | what it needs at run time |
-| `export(capability, window, out_dir)` | `RevisionRecord` | shells out to the upstream, writes files, returns the record |
+| `export(capability, window, out_dir)` | `RevisionRecord` | materializes files or references existing files under `out_dir` as documented below |
 | `locate(record, root)` | `Path` | resolves a record under a revision root |
+
+## Export
+
+A materializing export obtains data from its upstream, writes revision files under `out_dir`,
+and returns their verifiable record.
+
+A file-only provider can opt in to in-place export by documenting the supported requests and
+revision root requirements. For a supported request, `out_dir` must resolve to the existing
+revision root accepted by the provider. The provider returns a record that verifies against
+the existing files contained under that root. In-place export makes no writes to the root,
+copies no files, and contacts no upstream. The caller can save the receipt outside the root.
 
 ## `CapabilityDeclaration`
 
@@ -62,3 +73,6 @@ fails by name; no partial read.
 Every `export` returns a `joseph_api.RevisionRecord` (capability, schema version, source, revision
 id, content digest, ordered file list with per-file digests, optional window). Paths are relative;
 the digest is independent of the root directory.
+
+The ordered file list relative to the revision root defines revision membership. A
+single-path result from `locate` is insufficient to identify a multi-file revision.
