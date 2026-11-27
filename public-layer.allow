@@ -18,6 +18,7 @@ packages/joseph-dal/README.md
 packages/joseph-dal/adr/README.md
 packages/joseph-dal/architecture/README.md
 packages/joseph-dal/contracts/README.md
+packages/joseph-dal/contracts/option-capability.md
 packages/joseph-live/README.md
 packages/joseph-live/adr/README.md
 packages/joseph-live/architecture/README.md
