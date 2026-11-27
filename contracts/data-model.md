@@ -44,8 +44,12 @@ nan) become nan.
 | `OptionBar` | `symbol`, `exchange_code`, `exchange`, `product`, `underlying_symbol`, `option_type`, `strike`, `trade_date`, `open`, `high`, `low`, `close`, `settle`, `pre_settle`, `volume`, `open_interest`, `exercise_volume`, `oi_change`, `amount`, `implied_vol`, `series_implied_vol`, `delta`, `source`, `data_version`, `fetched_at` | prices in index points; `settle` is the exchange settlement, and on the expiry date the intrinsic value at the underlying's final settlement |
 | `OptionGreek` | `symbol`, `underlying_symbol`, `trade_date`, `status`, `model`, `rate_source`, `forward_source`, `source`, `data_version`, `fetched_at`, `rate`, `time_to_expiry`, `underlying_price`, `iv`, `delta`, `gamma`, `vega`, `theta`, `rho` | derived by the lake; filter on `status` |
 
-`pre_settle` is present in the exported data but absent from the lake's registered contract
-(0.25.0); the row follows the data.
+`pre_settle` is the previous trading session's exchange settlement price. It is present in the
+exported data but absent from the lake's registered contract (0.25.0); the row follows the data.
+`OptionGreek.iv` is a fraction, and `time_to_expiry` is in years.
+
+A pin is the tuple (`revision_id`, `window`, `content_digest`). The lake's `revision_id` does not
+distinguish export windows; the tuple does. For snapshot-only exports, `window` is empty.
 
 ## Revision record (`joseph_api.revisions`, the #893 shape)
 
