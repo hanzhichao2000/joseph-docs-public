@@ -28,6 +28,25 @@ joseph-dal, not here.
 | `Margin` | `symbol`, `trade_date`, `margin_rate` (long/short), `margin_per_lot` | PIT-dated; provenance declared by the source |
 | `Fee` | `symbol`, `trade_date`, `fee_open`, `fee_close`, `fee_close_today`, `fee_unit` | PIT-dated |
 
+## Option rows (`joseph_api.market`)
+
+Rows of the option data lake as the source holds them — data, not tradable instrument specs (no
+margin, no commissions). Source strings are verbatim: `symbol` is the lake's compact symbol
+(`IO2403C3500.CFE`), `exchange_code` the joseph option-symbol form (`IO2403-C-3500`); `exchange`
+is the shared enum mapped from the lake code (`CFE` → `CFFEX`). The internal symbol is the
+exchange code plus `exchange_code` (`CFFEX.IO2403-C-3500`); there is no compact-symbol parser.
+Dates are as held — null when the source no longer dates a contract. Missing numerics (`None` or
+nan) become nan.
+
+| Type | Fields | Units / semantics |
+|---|---|---|
+| `OptionContract` | `symbol`, `exchange_code`, `exchange`, `product`, `product_name`, `underlying_kind`, `underlying_symbol`, `option_type`, `exercise_style`, `strike`, `multiplier`, `tick_size`, `expiry_date`, `expiry_month`, `list_date`, `first_seen_date`, `last_seen_date`, `dates_basis`, `source`, `data_version`, `fetched_at` | `strike` in index points; `multiplier` CNY per point; `option_type` `C`/`P` as held |
+| `OptionBar` | `symbol`, `exchange_code`, `exchange`, `product`, `underlying_symbol`, `option_type`, `strike`, `trade_date`, `open`, `high`, `low`, `close`, `settle`, `pre_settle`, `volume`, `open_interest`, `exercise_volume`, `oi_change`, `amount`, `implied_vol`, `series_implied_vol`, `delta`, `source`, `data_version`, `fetched_at` | prices in index points; `settle` is the exchange settlement, and on the expiry date the intrinsic value at the underlying's final settlement |
+| `OptionGreek` | `symbol`, `underlying_symbol`, `trade_date`, `status`, `model`, `rate_source`, `forward_source`, `source`, `data_version`, `fetched_at`, `rate`, `time_to_expiry`, `underlying_price`, `iv`, `delta`, `gamma`, `vega`, `theta`, `rho` | derived by the lake; filter on `status` |
+
+`pre_settle` is present in the exported data but absent from the lake's registered contract
+(0.25.0); the row follows the data.
+
 ## Revision record (`joseph_api.revisions`, the #893 shape)
 
 | Field | Type | Rule |
