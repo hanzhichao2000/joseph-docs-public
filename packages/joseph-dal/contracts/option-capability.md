@@ -35,8 +35,9 @@ All three declarations have `window_limits = None`.
 
 ## Windows and coverage
 
-For `option_bars` and `option_greeks`, the calendar starts 2023-11-26; the inclusive
-2023-11-01 through 2023-11-25 prefix is `calendar_unverified` and carries no coverage promise.
+Rows may exist before the source calendar begins; that prefix is recorded as `calendar_unverified`
+on the receipt and carries no coverage promise. The declared `coverage_start` and calendar start
+are read from the provider declaration and receipt, not from this document.
 
 Dated exports require an inclusive window; snapshot exports reject one. An inverted window or a
 start before the declared coverage start is rejected before contacting the source. When a dated
