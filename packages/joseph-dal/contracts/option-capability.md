@@ -36,11 +36,13 @@ All three declarations have `window_limits = None`.
 ## Windows and coverage
 
 Dated exports require an inclusive window; snapshot exports reject one. An inverted window or a
-start before the declared coverage start is rejected before contacting the source. A dated export
-validates every natural calendar day in the checked interval, then footer bounds, then distinct
-dates from the data column. Missing calendar days or trading dates and an end beyond the calendar
-fail closed. A window prefix before the calendar start is declared in the digest-protected,
-receipt-listed `<capability>.coverage.json` as `calendar_unverified` with inclusive `start` and
-`end`; it is not a coverage promise. A wholly earlier window is wholly unverified. The receipt's
+start before the declared coverage start is rejected before contacting the source. When a dated
+export has an interval covered by the calendar, it validates every natural calendar day in that
+interval, then footer bounds, then distinct dates from the data column. Missing calendar days or
+trading dates and an end beyond the calendar fail closed. A window prefix before the calendar start
+is declared in the digest-protected, receipt-listed `<capability>.coverage.json` as
+`calendar_unverified` with inclusive `start` and `end`; it is not a coverage promise. If the
+entire window precedes the calendar start, `calendar_unverified` covers the entire window; no
+completeness is promised and neither footer nor date-column checks are performed. The receipt's
 window records the request, not a completeness guarantee. Pin a revision by (`revision_id`,
 `window`, `content_digest`); snapshot-only exports have an empty window.

@@ -28,16 +28,19 @@ optional `window_limits`, `coverage_start` and `derived_from` declare the export
 
 A `by_date` export requires a window; `snapshot_only` rejects a window; and
 `snapshot_with_backfill` accepts either. An inverted window or a start before the declared
-`coverage_start` is rejected before contacting the source. Limits, if declared, also apply.
+`coverage_start` is rejected before contacting the source. All current cnequity declarations have
+`window_limits = None`; enforcement of non-empty limits is not implemented and is future work.
 
-For calendar-checked exports, the source calendar must include every natural day in the checked
-interval. The provider checks calendar continuity, then Parquet footer boundaries, then reads
-actual distinct dates from the date column; footer bounds alone cannot prove completeness.
-Missing calendar days, missing trading dates, and windows extending beyond the calendar end fail
-closed. A prefix before the calendar's first date is not calendar-verified and carries no coverage
-promise. The revision lists a digest-protected `<capability>.coverage.json` containing
-`calendar_unverified: {start, end}` with inclusive prefix dates, including when the entire window
-is such a prefix. A receipt window records the request, not a completeness guarantee.
+For calendar-checked exports with an interval covered by the calendar, the source calendar must
+include every natural day in that interval. The provider checks calendar continuity, then Parquet
+footer boundaries, then reads actual distinct dates from the date column; footer bounds alone
+cannot prove completeness. Missing calendar days, missing trading dates, and windows extending
+beyond the calendar end fail closed. A prefix before the calendar's first date is not
+calendar-verified and carries no coverage promise. The revision lists a digest-protected
+`<capability>.coverage.json` containing `calendar_unverified: {start, end}` with inclusive prefix
+dates. If the entire window precedes the calendar start, `calendar_unverified` covers the entire
+window; no completeness is promised and neither footer nor date-column checks are performed.
+A receipt window records the request, not a completeness guarantee.
 
 ## Replay
 
