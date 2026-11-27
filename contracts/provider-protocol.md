@@ -21,8 +21,23 @@ strict-local mode. joseph-dal implements the host side; `dal-cnequity` is the fi
 
 ## `CapabilityDeclaration`
 
-`capability_id` (e.g. `option_bars`), `schema_version`, `source` (e.g. `cnequity@0.25.0`),
-`history_mode` (`by_date`, `snapshot_with_backfill`, `snapshot_only`), optional window limits.
+`capability_id` (e.g. `option_bars`), `schema_version`, `source`, `history_mode`,
+optional `window_limits`, `coverage_start` and `derived_from` declare the export contract.
+`coverage_start` is the source's earliest data date, not a completeness guarantee.
+`derived_from` names input capabilities when applicable.
+
+A `by_date` export requires a window; `snapshot_only` rejects a window; and
+`snapshot_with_backfill` accepts either. An inverted window or a start before the declared
+`coverage_start` is rejected before contacting the source. Limits, if declared, also apply.
+
+For calendar-checked exports, the source calendar must include every natural day in the checked
+interval. The provider checks calendar continuity, then Parquet footer boundaries, then reads
+actual distinct dates from the date column; footer bounds alone cannot prove completeness.
+Missing calendar days, missing trading dates, and windows extending beyond the calendar end fail
+closed. A prefix before the calendar's first date is not calendar-verified and carries no coverage
+promise. The revision lists a digest-protected `<capability>.coverage.json` containing
+`calendar_unverified: {start, end}` with inclusive prefix dates, including when the entire window
+is such a prefix. A receipt window records the request, not a completeness guarantee.
 
 ## Replay
 
