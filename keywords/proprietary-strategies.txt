@@ -1,7 +1,0 @@
-# one term per line, case-insensitive substrings; maintained in joseph-docs-private/rules/keywords
-qt5m
-alpha3716
-alpha3721
-productiont0lssignal5
-l2_tick_replay_642
-ih_paired_quantile
