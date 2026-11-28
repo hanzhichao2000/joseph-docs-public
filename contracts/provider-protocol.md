@@ -24,7 +24,9 @@ strict-local mode. joseph-dal implements the host side; `dal-cnequity` is the fi
 `capability_id` (e.g. `option_bars`), `schema_version`, `source`, `history_mode`,
 optional `window_limits`, `coverage_start` and `derived_from` declare the export contract.
 `coverage_start` is the source's earliest data date, not a completeness guarantee.
-`derived_from` names input capabilities when applicable.
+`derived_from` names input capabilities when applicable. A receipt may record `calendar_unverified`
+as an inclusive date range at the start of the window preceding the source calendar's first date;
+coverage validation applies only from the calendar start and makes no coverage promise for that prefix.
 
 A `by_date` export requires a window; `snapshot_only` rejects a window; and
 `snapshot_with_backfill` accepts either. An inverted window or a start before the declared

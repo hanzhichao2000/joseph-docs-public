@@ -35,6 +35,10 @@ All three declarations have `window_limits = None`.
 
 ## Windows and coverage
 
+Rows may exist before the source calendar begins; that prefix is recorded as `calendar_unverified`
+on the receipt and carries no coverage promise. The declared `coverage_start` and calendar start
+are read from the provider declaration and receipt, not from this document.
+
 Dated exports require an inclusive window; snapshot exports reject one. An inverted window or a
 start before the declared coverage start is rejected before contacting the source. When a dated
 export has an interval covered by the calendar, it validates every natural calendar day in that
