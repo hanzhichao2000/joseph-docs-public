@@ -1,10 +1,9 @@
 import os
-from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
-
+from pathlib import Path
 
 SCANNER = Path(__file__).with_name("check_keywords.py")
 
@@ -28,6 +27,7 @@ class PublicKeywordCheckTest(unittest.TestCase):
     def run_scan(self) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
             [sys.executable, str(SCANNER), str(self.policy), str(self.root)],
+            check=False,
             capture_output=True,
             text=True,
         )
@@ -49,6 +49,16 @@ class PublicKeywordCheckTest(unittest.TestCase):
         self.assertIn("1 path, 1 text matches", result.stderr)
         self.assertNotIn(self.marker.lower(), result.stderr.lower())
         self.assertNotIn("README.md", result.stderr)
+
+    def test_reads_working_tree_content_for_indexed_paths(self) -> None:
+        path = self.root / "example.txt"
+        path.write_text(self.marker, encoding="utf-8")
+        self.track(path)
+        path.write_text("clean", encoding="utf-8")
+        self.assertEqual(self.run_scan().returncode, 0)
+        self.track(path)
+        path.write_text(self.marker, encoding="utf-8")
+        self.assertEqual(self.run_scan().returncode, 1)
 
     def test_scans_symlink_target_text(self) -> None:
         link = self.root / "link"

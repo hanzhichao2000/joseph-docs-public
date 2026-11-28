@@ -46,6 +46,10 @@ inputs fail the check. Its diagnostics report match counts. Keep internal plans,
 references, and project-specific review material in the appropriate private channel. Approval
 also requires private review of the same candidate revision.
 
+Run the checker from a clean checkout to reproduce CI. It reads paths from the
+Git index and content from the working tree. A run with local changes cannot
+verify the staged snapshot.
+
 The scanner can run against another public checkout with
 `python3 tools/check_keywords.py keywords/public-boundary.txt <checkout>`. Downstream mirrors of
 the scanner and list are maintained as copies of these public sources.
