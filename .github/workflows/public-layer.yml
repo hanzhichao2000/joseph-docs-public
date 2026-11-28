@@ -7,4 +7,5 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -s tools
       - run: python3 tools/check_public_layer.py

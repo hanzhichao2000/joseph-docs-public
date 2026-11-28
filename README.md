@@ -36,6 +36,16 @@ the same code PR.
 
 ## Enforcement
 
-`public-layer.allow` is the whitelist for everything under `architecture/`, `contracts/`,
-`guides/`, `reference/` and `rules/`. CI (`public-layer.yml`, GitHub-hosted) fails when a file
-appears that is not whitelisted, or a whitelisted file is missing. Add public content by adding the file and its allowlist entry in the same PR; vendor, research and control-plane material goes to `joseph-docs-private` instead. Keep every public markdown file at or under 200 lines: short canonical contracts only, no full-text copies of long internal documents.
+Run `python3 tools/check_public_layer.py` from the repository checkout. CI runs the same check.
+Add each new public document and its entry in `public-layer.allow` in the same PR. Public Markdown,
+including the root README, is limited to 200 lines.
+
+The automated keyword check reads tracked paths and text using
+`keywords/public-boundary.txt`, which contains only publishable markers. Missing or empty policy
+inputs fail the check. Its diagnostics report match counts. Keep internal plans, tracker
+references, and project-specific review material in the appropriate private channel. Approval
+also requires private review of the same candidate revision.
+
+The scanner can run against another public checkout with
+`python3 tools/check_keywords.py keywords/public-boundary.txt <checkout>`. Downstream mirrors of
+the scanner and list are maintained as copies of these public sources.
